@@ -51,7 +51,7 @@ Le projet se compose de **deux parties principales** :
 
 ## 👥 Organisation
 
-* Projet réalisé **[Melissa Bouloufa](https://github.com/blfmelissa) et Moi**
+* Projet réalisé par **[Melissa Bouloufa](https://github.com/blfmelissa) et Moi**
 * Travail académique encadré dans le cadre du master
 
 ---
