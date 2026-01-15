@@ -51,7 +51,7 @@ Le projet se compose de **deux parties principales** :
 
 ## 👥 Organisation
 
-* Projet réalisé **en binôme (2 étudiants maximum)**
+* Projet réalisé **Moi et @blfmelissa
 * Travail académique encadré dans le cadre du master
 
 ---
