@@ -1,0 +1,58 @@
+Expliquer la partie d'exploration de données, les anomalies trouvées (Imbalanced data)
+Explication du protocole en commun, et surtout les métriques utilisées, quand ??
+expliquer que l'accuracy n'est pas la meilleure métriques pour les datasets déséquilibrés, pourquoi? et qsq on utilise 
+Pour nos datasets très déséquilibrés, on peut éventuellement mentionner que la PR‑AUC (AUC de la courbe précision‑rappel) est encore plus sensible à la classe positive, mais ROC‑AUC reste une métrique classique et acceptable pour notre projet.
+Explication de tous les algorithmes par catégorie et leurs fonctionnements 
+Faire un tableau récapitulatif des algo utilisés avec les variantes 
+Expliquer pourquoi on a utiliser SMOTE ADASYN Classweight pour chaque type de modèle 
+
+
+------------------A mettre dans le rapport, a reformuler si on veut ------------------------------------------------
+
+## 1. Approches cost‑sensitive (pondération des classes)
+
+Tu as utilisé le paramètre `class_weight="balanced"` dans plusieurs modèles linéaires et arbres (régression logistique, SVM linéaire, forêts aléatoires, arbres de décision, etc.).  
+
+Idée générale : au lieu de modifier les données, on **modifie la fonction de coût** de l’algorithme. Les exemples de la classe minoritaire reçoivent un **poids plus élevé** dans la loss, donc une erreur sur cette classe « coûte » plus cher qu’une erreur sur la classe majoritaire. Cela pousse le modèle à mieux détecter la classe rare, sans changer la distribution du dataset.
+
+***
+
+## 2. Over‑sampling synthétique sur le train (SMOTE, ADASYN)
+
+Tu as utilisé deux méthodes d’over‑sampling dans des pipelines :
+
+- **SMOTE + KNN** (variante `knn_smote`)  
+- **ADASYN + modèles non linéaires** (arbres, forêts, AdaBoost, Gradient Boosting)
+
+Ces méthodes rééquilibrent les classes **uniquement sur les données d’entraînement** :
+
+- SMOTE crée de **nouveaux exemples synthétiques** de la classe minoritaire en interpolant entre des voisins proches dans l’espace des features.  
+- ADASYN est une variante plus adaptative : il génère davantage d’exemples dans les zones où la classe minoritaire est difficile à apprendre (frontières complexes, peu de points), ce qui concentre l’effort du modèle sur les régions problématiques.
+
+L’idée est de présenter au modèle un train plus équilibré, tout en évaluant ensuite sur un test qui garde la distribution réelle.
+
+***
+
+## 3. Pipelines « ré‑échantillonnage + modèle »
+
+Pour rester propre et reproductible, tu as intégré ces techniques dans des **pipelines** :
+
+- `SMOTE/ADASYN → normalisation éventuelle → classifieur`  
+- Ces pipelines sont entraînés uniquement sur le **train** (après split stratifié), ce qui évite toute fuite d’information entre train et test.  
+- Tu as appliqué ces variantes **uniquement aux datasets marqués comme déséquilibrés** (colonne `imbalanced`), afin de ne pas dégrader artificiellement les jeux déjà équilibrés.
+
+***
+
+## 4. Choix des métriques adaptées
+
+Pour juger l’effet de ces traitements, tu ne t’es pas contenté de l’accuracy :
+
+- tu utilises surtout le **F1‑score** comme métrique principale de comparaison (meilleur compromis précision/rappel sur la classe positive) ;  
+- tu regardes aussi l’**AUC ROC** pour mesurer la capacité de séparation entre les classes, indépendamment d’un seuil fixe ;  
+- l’accuracy reste suivie, mais surtout pour les datasets équilibrés, car elle peut être trompeuse quand une classe domine.
+
+***
+
+
+A faire: Bagging
+Bagging:  VotingClassifier (bagging de modèles déjà entraînés), bagging_tree 
