@@ -40,7 +40,7 @@ Le projet se compose de **deux parties principales** :
 
 ## 🛠️ Compétences et notions abordées
 
-* Analyse exploratoire des données (EDA)
+* Analyse exploratoire des données 
 * Prétraitement et nettoyage des données
 * Apprentissage supervisé
 * Modèles de classification
