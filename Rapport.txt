@@ -56,3 +56,23 @@ Pour juger l’effet de ces traitements, tu ne t’es pas contenté de l’accur
 
 A faire: Bagging
 Bagging:  VotingClassifier (bagging de modèles déjà entraînés), bagging_tree 
+
+
+
+
+
+
+
+
+
+---------------------------------------Part 2----------------------------------------
+Modèles non linéaires : pourquoi random forest ?? 
+Pourquoi forêt aléatoire plutôt qu’un seul arbre ?
+Un arbre seul est très instable
+Un petit changement dans les données peut complètement modifier la structure de l’arbre (où les coupures se font). Il a tendance à sur‑apprendre, surtout sur des jeux complexes et bruités comme la fraude.
+
+La forêt réduit la variance et généralise mieux
+Une forêt aléatoire agrège des dizaines/centaines d’arbres entraînés sur des sous‑échantillons de données et de variables. En moyennant leurs prédictions (vote), on obtient un modèle beaucoup plus robuste et plus stable qu’un seul arbre (le bagging)
+
+Les forêts marchent très bien en fraude/jeu déséquilibré
+En pratique et dans la littérature, les forêts aléatoires (souvent avec class_weight ou SMOTE) donnent fréquemment de très bons résultats en F1 pour la détection de fraude ou de churn, souvent meilleurs que les arbres simples ou certains modèles linéaires
