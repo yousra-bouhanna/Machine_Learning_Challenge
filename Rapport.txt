@@ -76,3 +76,11 @@ Une forêt aléatoire agrège des dizaines/centaines d’arbres entraînés sur 
 
 Les forêts marchent très bien en fraude/jeu déséquilibré
 En pratique et dans la littérature, les forêts aléatoires (souvent avec class_weight ou SMOTE) donnent fréquemment de très bons résultats en F1 pour la détection de fraude ou de churn, souvent meilleurs que les arbres simples ou certains modèles linéaires
+
+
+
+
+
+
+Modèles linéaires: Régression logistiques: Pourquoi ?
+Pour la famille des modèles linéaires, on retient la régression logistique. C’est un modèle de référence en scoring bancaire et en détection de fraude : il fournit directement une probabilité de fraude interprétable, sert de bonne baseline pour comparer les modèles plus complexes, et se prête bien au traitement du déséquilibre via l’ajout de `class_weight="balanced"` (version cost-sensitive).
