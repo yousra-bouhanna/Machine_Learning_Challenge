@@ -1,0 +1,3 @@
+# ignorer le fichier txt et csv des données de fraudes bancaires 
+datasets/data_part2.txt
+datasets/fraudes_bancaires.csv
